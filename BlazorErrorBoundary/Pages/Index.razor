@@ -1,0 +1,42 @@
+﻿@using BlazorErrorBoundary.Components;
+@page "/"
+
+<div class="p-3 border border-primary">
+    <p class="p-1">Error without ErrorBoundary</p>
+    <ExceptionComponent />
+</div>
+
+<div class="mt-2 p-3 border border-secondary">
+    <p class="p-1">Error with standard ErrorBoundary</p>
+    <ErrorBoundary>
+        <ExceptionComponent />
+    </ErrorBoundary>
+    
+</div>
+
+<div class="mt-2 p-3 border border-success">
+    <p class="p-1">Error with custom ErrorBoundary</p>
+    <ErrorBoundary @ref="errorBoundary">
+        <ChildContent>
+            <ExceptionComponent />
+        </ChildContent>
+        <ErrorContent Context="ex">
+           <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" @onclick="ResetError">&times;</button>
+            <strong>Danger!</strong> This is a custom error: @ex.Message
+             </div>
+        </ErrorContent>
+    </ErrorBoundary>
+    
+</div>
+
+@code
+{
+    private ErrorBoundary? errorBoundary;
+
+    private void ResetError()
+    {
+        errorBoundary?.Recover();        
+    }
+
+}

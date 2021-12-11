@@ -1,0 +1,10 @@
+﻿<div class="btn btn-primary" @onclick="SendException">Click me</div>
+
+@code {
+
+    private void SendException()
+    {
+        throw new Exception("Unhandle Exception Error!!!");
+    }
+
+}
